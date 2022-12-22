@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const userDetail = () => {
+export const UserDetail = () => {
   return (
     <div>userDetailpage</div>
   )
