@@ -1,0 +1,17 @@
+.outer_div {
+  width: 45%;
+  height: 5rem;
+  margin: auto;
+  margin-top: 6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #92d5d5;
+  height: 4.8rem;
+  width: 25%;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
