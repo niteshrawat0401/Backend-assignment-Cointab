@@ -1,13 +1,18 @@
-const express = require("express");
+import express from "express";
+import usersRouter from "./routes/userRouter.js";
+import connect from "./db/db.js";
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.get("/", (req, res) => res.send("hello"));
 
-let PORT = process.env.PORT || 8080;
+app.use("/user", usersRouter);
+app.get("/", (req, res) => res.send("Hello"));
 
-app.listen(8080, () => {
-  console.log("Server started on http://localhost:8080");
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, async () => {
+  await connect;
+  console.log("server started at http://localhost:8080");
 });
