@@ -8,19 +8,18 @@ const usersRouter = Router();
 const appendData = async () => {
   const res = await fetch("https://randomuser.me/api?results=50");
   const data = await res.json();
-  let allResult = data.results;
+  let allResults = data.results;
   //   console.log(allResult);
-  let i=0;
-  // for (let i = 0; i < allResult.length; i++) {
-    while(i < allResult.length){
+  let i = 0;
+  while (i < allResults.length) {
     const user = new Users({
-      picture: allResult[i].picture.large,
-      first: allResult[i].name.first,
-      last: allResult[i].name.last,
-      gender: allResult[i].gender,
-      email: allResult[i].email,
-      location: allResult[i].location.street.name,
-      pin: allResult[i].location.street.number,
+      picture: allResults[i].picture.large,
+      first: allResults[i].name.first,
+      last: allResults[i].name.last,
+      gender: allResults[i].gender,
+      email: allResults[i].email,
+      location: allResults[i].location.street.name,
+      pin: allResults[i].location.street.number,
     });
     user.save();
     i++;
@@ -34,7 +33,7 @@ usersRouter.post("/", (req, res) => {
       return res.status(201).send({ sucess: true, getAllData });
     }
   } catch (error) {
-    res.send({ sucess: false, error });
+    return res.send({ sucess: false, error });
   }
 });
 
@@ -79,13 +78,11 @@ usersRouter.get("/page", async (req, res) => {
     .limit(pageSize)
     .skip(pageSize * page);
   try {
-    return res
-      .status(201)
-      .send({
-        sucess: true,
-        allPages: Math.ceil(totalPage / pageSize),
-        pageFind: pageFind,
-      });
+    return res.status(201).send({
+      sucess: true,
+      allPages: Math.ceil(totalPage / pageSize),
+      pageFind: pageFind,
+    });
   } catch (error) {
     return res.status(500).send({ sucess: false, error });
   }
