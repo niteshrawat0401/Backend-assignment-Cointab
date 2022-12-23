@@ -1,0 +1,30 @@
+.outer_div {
+  width: 45%;
+  height: 5rem;
+  margin: auto;
+  margin-top: 6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.outer_div button {
+  background-color: #92d5d5;
+  height: 4.8rem;
+  width: 25%;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav_div {
+  /* border: 1px solid red; */
+  height: 4rem;
+  margin: auto;
+  width: 98%;
+  border-radius: 5px;
+  background-color: #0d1117;
+  color: white;
+}
+.nav_div h1 {
+  padding-top: 8px;
+}
