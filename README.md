@@ -37,15 +37,8 @@ Post: http://localhost:8080/user/filter/:key
 ```
 
 
-<h3>Step 6: Get user Profile account</h3>
+<h3>Step 6: Pagination</h3>
 
 ```Javascript
-Get: http://localhost:8080/auth/profile/:id
-```
-
-
-<h3>Step 7: Create Expense</h3>
-
-```Javascript
-Post: http://localhost:8080/user/page?page=1
+Get: http://localhost:8080/user/page?page=1
 ```
