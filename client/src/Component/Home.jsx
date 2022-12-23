@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles/Home.module.css"
+import styles from "./styles/Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -16,12 +16,11 @@ export const Home = () => {
   // ------Post data------
   function postAllData() {
     if (data == false) {
-      axios.post("http://localhost:8080/user")
-        getPage();
-        setData(true);
+      axios.post("http://localhost:8080/user");
+      
+      setData(true);
       alert("Data Fetched");
-    }
-    else{
+    } else {
       alert("Data already Present");
     }
   }
@@ -35,7 +34,7 @@ export const Home = () => {
         // console.log("result", result);
         if (result.length == 0) {
           setData(false);
-          getPage();
+          
         } else {
           setData(true);
         }
@@ -47,13 +46,12 @@ export const Home = () => {
 
   // -----Delete------
   function deleteData() {
-    if (data === true) {
+    if (data == true) {
       axios.delete("http://localhost:8080/user/delete").then(() => {
         getPage();
+        alert("Delete records");
       });
-      alert("Delete records");
-    }
-     else {
+    } else {
       alert("Data is not Present");
     }
   }

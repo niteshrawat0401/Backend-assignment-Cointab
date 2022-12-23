@@ -11,6 +11,7 @@ export const UserDetail = () => {
   const [pageNum, setPageNum] = useState(0);
   const [allPages, setAllPages] = useState(0);
 
+
   useEffect(() => {
     appendAllData();
   }, [pageNum]);
@@ -21,18 +22,17 @@ export const UserDetail = () => {
       .get(`http://localhost:8080/user/page?page=${pageNum}`)
       .then((res) => {
         setAllPages(res.data.allPages);
-        // console.log("data", res.data.allPages);
         setdata(res.data.pageFind);
       })
       .catch((error) => {
-        console.log("error", error);
+        console.log(error);
       });
   }
 
   return (
     <div>
       <div className={styles.filter_div}>
-        <Filter data={data} setdata={setdata} />
+        <Filter setdata={setdata} />
       </div>
 
       <table>
@@ -67,7 +67,11 @@ export const UserDetail = () => {
       </table>
 
       <div className={styles.pagni_div}>
-        <Page pageNum={pageNum} allPages={allPages} setPageNum={setPageNum} />
+        <Page
+          pageNum={pageNum}
+          allPages={allPages}
+          setPageNum={setPageNum}
+        />
       </div>
     </div>
   );

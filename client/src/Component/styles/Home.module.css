@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.nav_div{
+.nav_div {
   /* border: 1px solid red; */
   height: 4rem;
   margin: auto;
@@ -25,6 +25,6 @@
   background-color: #0d1117;
   color: white;
 }
-.nav_div h1{
+.nav_div h1 {
   padding-top: 8px;
 }

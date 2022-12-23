@@ -2,18 +2,17 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const Filter = ({ data, setdata }) => {
-  const [filter, setFilter] = useState();
+export const Filter = ({ setdata }) => {
+  const [filter, setFilter] = useState("");
 
-  
   // ------Filter data-------
   function filterData(e) {
     let value = e.target.value;
     axios
       .get(`http://localhost:8080/user/filter/${value}`)
       .then((res) => {
-        setdata(res.data.search);
-        // console.log(res.data.search);
+        setdata(res.data.filter);
+        // console.log(res.data.filter);
         setFilter(value);
       })
       .catch((error) => {
@@ -21,6 +20,7 @@ export const Filter = ({ data, setdata }) => {
       });
   }
   useEffect(() => {}, [filter]);
+
   return (
     <div>
       <select onChange={filterData}>

@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export const Page = ({ setPageNum, allPages, pageNum,  }) => {
-
+export const Page = ({ setPageNum, allPages, pageNum }) => {
   // -----Pagination------
   const pagesData = new Array(allPages).fill(null).map((v, i) => i);
 
@@ -11,7 +10,7 @@ export const Page = ({ setPageNum, allPages, pageNum,  }) => {
   }
 
   function nextPage() {
-    setPageNum(Math.max(allPages -1, pageNum +1));
+    setPageNum(Math.max(allPages - 1, pageNum + 1));
   }
   return (
     <div className="page">
@@ -23,7 +22,7 @@ export const Page = ({ setPageNum, allPages, pageNum,  }) => {
           </button>
         );
       })}
-      <button onClick={nextPage} >Next</button>
+      <button onClick={nextPage}>Next</button>
     </div>
   );
 };

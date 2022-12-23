@@ -10,8 +10,9 @@ const appendData = async () => {
   const data = await res.json();
   let allResult = data.results;
   //   console.log(allResult);
-  let i;
-  for (let i = 0; i < allResult.length; i++) {
+  let i=0;
+  // for (let i = 0; i < allResult.length; i++) {
+    while(i < allResult.length){
     const user = new Users({
       picture: allResult[i].picture.large,
       first: allResult[i].name.first,
@@ -22,33 +23,52 @@ const appendData = async () => {
       pin: allResult[i].location.street.number,
     });
     user.save();
+    i++;
   }
 };
 
 usersRouter.post("/", (req, res) => {
   let getAllData = appendData();
   try {
-    if(getAllData){
-        res.status(201).send({ sucess: true ,getAllData })
-      }
+    if (getAllData) {
+      return res.status(201).send({ sucess: true, getAllData });
+    }
   } catch (error) {
-    res.send(error)
+    res.send({ sucess: false, error });
   }
-  
-  
 });
 
 // -----Delete-----
 usersRouter.delete("/delete", async (req, res) => {
-    const deleteAlldata = await Users.deleteMany();
-    try {
-      if (deleteAlldata) {
-        res.status(201).send({ message: "Delete Data" });
-      }
-    } catch (error) {
-      res.send({ error });
+  const deleteAlldata = await Users.deleteMany({});
+  try {
+    if (deleteAlldata) {
+      return res.status(201).send({ sucess: true, message: "Delete Data" });
     }
+  } catch (error) {
+    return res.send({ sucess: false, error });
+  }
+});
+
+// -----Filter-----
+usersRouter.get("/filter/:key", async (req, res) => {
+  let filter = await Users.find({
+    $or: [
+      {
+        gender: req.params.key,
+      },
+    ],
   });
+  try {
+    if (filter) {
+      return res
+        .status(201)
+        .send({ sucess: true, message: "Filter data", filter });
+    }
+  } catch (error) {
+    return res.send({ sucess: false, error });
+  }
+});
 
 // -----Pagenation-----
 usersRouter.get("/page", async (req, res) => {
@@ -56,34 +76,19 @@ usersRouter.get("/page", async (req, res) => {
   let page = parseInt(req.query.page || 0);
   let totalPage = await Users.countDocuments();
   let pageFind = await Users.find()
-    .limit(pageSize).skip(pageSize * page);
+    .limit(pageSize)
+    .skip(pageSize * page);
   try {
     return res
       .status(201)
-      .send({ allPages: Math.ceil(totalPage / pageSize), pageFind: pageFind });
+      .send({
+        sucess: true,
+        allPages: Math.ceil(totalPage / pageSize),
+        pageFind: pageFind,
+      });
   } catch (error) {
-    return res.status(500).send({ error });
+    return res.status(500).send({ sucess: false, error });
   }
 });
-
-// -----Filter-----
-usersRouter.get("/filter/:key", async(req, res)=>{
-    let search= await Users.find({
-        $or:[
-            {
-                gender: req.params.key
-            }
-            ]
-    })
-    try {
-        if(search){
-            res.status(201).send({message: "Filter data" ,search})
-        }
-    } catch (error) {
-        res.send(error)
-    }
-})
-
-
 
 export default usersRouter;
