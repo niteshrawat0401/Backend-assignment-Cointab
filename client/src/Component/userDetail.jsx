@@ -7,6 +7,7 @@ import styles from "./styles/UserDetail.module.css";
 export const UserDetail = () => {
   const [data, setdata] = useState([]);
   const [pageNum, setPageNum] = useState(0);
+  const [filter, setFilter]= useState("");
   const [allPages, setAllPages] = useState(0);
 
   
@@ -28,7 +29,20 @@ export const UserDetail = () => {
   }
 
   // -----Filter-----
-  
+  function filterData(e){
+    let value= e.target.value;
+    axios.get(`http://localhost:8080/user/filter/${value}`)
+    .then((res)=>{
+      setdata(res.data.search);
+      console.log(res.data);
+        setFilter(value);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
+  useEffect(()=>{
+  }, [filter])
 
   // -----Pagination-----
   function lastPage() {
@@ -44,7 +58,7 @@ export const UserDetail = () => {
   return (
     <div>
       <div className={styles.filter_div}>
-        <select onChange={filter}>
+        <select onChange={filterData}>
           <option value="">Filter By Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>

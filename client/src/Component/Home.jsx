@@ -17,15 +17,12 @@ export const Home = () => {
   function postAllData() {
     if (data == false) {
       axios.post("http://localhost:8080/user")
-      // .then((res) => {
-        // console.log(res.data);
         getPage();
         setData(true);
-      // });
       alert("Data Fetched");
     }
     else{
-      alert("sata");
+      alert("Data already Present");
     }
   }
 

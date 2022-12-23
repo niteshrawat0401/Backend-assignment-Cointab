@@ -13,7 +13,7 @@
 }
 
 table{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* height: 5rem; */
     width: 80%;
     margin: auto;
@@ -52,4 +52,5 @@ button{
     font-size: 15px;
     background-color: #4255a4;
     color: white;
+    border-color: none;
 }
