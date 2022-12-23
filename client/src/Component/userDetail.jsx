@@ -4,13 +4,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Page } from "./Page";
 import styles from "./styles/UserDetail.module.css";
+
 export const UserDetail = () => {
   const [data, setdata] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [filter, setFilter]= useState("");
   const [allPages, setAllPages] = useState(0);
 
-  
+
   useEffect(() => {
     appendAllData();
   }, [pageNum]);
@@ -43,17 +44,6 @@ export const UserDetail = () => {
   }
   useEffect(()=>{
   }, [filter])
-
-  // -----Pagination-----
-  function lastPage() {
-    setPageNum(Math.max(0, pageNum - 1));
-  }
-
-  function nextPage() {
-    setPageNum(Math.max(allPages - 1, pageNum + 1));
-  }
-
-  const pagesData = new Array(allPages).fill(null).map((v, i) => i);
 
   return (
     <div>
@@ -98,10 +88,9 @@ export const UserDetail = () => {
 
       <div className={styles.pagni_div}>
         <Page
+        pageNum={pageNum}
+        allPages={allPages}
           setPageNum={setPageNum}
-          pagesData={pagesData}
-          pageinate1={lastPage}
-          pageinate2={nextPage}
         />
       </div>
     </div>

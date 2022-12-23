@@ -50,7 +50,6 @@ usersRouter.delete("/delete", async (req, res) => {
     }
   });
 
-// http://localhost:8080/user/page?page=1
 // -----Pagenation-----
 usersRouter.get("/page", async (req, res) => {
   let pageSize = 10;
