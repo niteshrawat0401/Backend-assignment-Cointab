@@ -28,4 +28,3 @@ export const Page = ({ setPageNum, allPages, pageNum,  }) => {
     </div>
   );
 };
-// qua enginiring  soft test engineeing 
