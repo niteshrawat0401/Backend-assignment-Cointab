@@ -4,7 +4,7 @@ import Users from "../model/user.js";
 
 const usersRouter = Router();
 
-// -----Get data
+// -----Get data------
 const appendData = async () => {
   const res = await fetch("https://randomuser.me/api?results=50");
   const data = await res.json();
@@ -25,9 +25,17 @@ const appendData = async () => {
   }
 };
 
-usersRouter.get("/", (req, res) => {
+usersRouter.post("/", (req, res) => {
   let getAllData = appendData();
-  res.send(getAllData);
+  try {
+    if(getAllData){
+        res.status(201).send({ sucess: true ,getAllData })
+      }
+  } catch (error) {
+    res.send(error)
+  }
+  
+  
 });
 
 // -----Delete-----
@@ -53,7 +61,7 @@ usersRouter.get("/page", async (req, res) => {
   try {
     return res
       .status(201)
-      .send({ allPages: Math.ceil(totalPage / pageSize), pageFind });
+      .send({ allPages: Math.ceil(totalPage / pageSize), pageFind: pageFind });
   } catch (error) {
     return res.status(500).send({ error });
   }

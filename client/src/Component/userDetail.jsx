@@ -1,6 +1,11 @@
 import React from 'react'
+import { useState } from 'react'
 import "./styles/UserDetail.css"
 export const UserDetail = () => {
+  const [data, setData]= useState([]);
+
+
+
   return (
     <div>
       <div className='filter_div'>
@@ -23,6 +28,7 @@ export const UserDetail = () => {
         </tr>
         </thead>
         <tbody>
+          {
           <tr>
             <td>Nitesh</td>
             <td>Nitesh</td>
@@ -31,6 +37,7 @@ export const UserDetail = () => {
             <td>Delhi</td>
             <td>110003</td>
           </tr>
+          }
         </tbody>
       </table>
     </div>
