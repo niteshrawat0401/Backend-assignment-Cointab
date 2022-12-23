@@ -1,45 +1,95 @@
-import React from 'react'
-import { useState } from 'react'
-import "./styles/UserDetail.css"
+import axios from "axios";
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Page } from "./Page";
+import styles from "./styles/UserDetail.module.css";
 export const UserDetail = () => {
-  const [data, setData]= useState([]);
+  const [data, setdata] = useState([]);
+  const [pageNum, setPageNum] = useState(0);
+  const [allPages, setAllPages] = useState(0);
 
+  
+  useEffect(() => {
+    appendAllData();
+  }, [pageNum]);
 
+  // -----append-----
+  function appendAllData() {
+    axios
+      .get(`http://localhost:8080/user/page?page=${pageNum}`)
+      .then((res) => {
+        setAllPages(res.data.allPages);
+        setdata(res.data.pageFind);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // -----Filter-----
+  
+
+  // -----Pagination-----
+  function lastPage() {
+    setPageNum(Math.max(0, pageNum - 1));
+  }
+
+  function nextPage() {
+    setPageNum(Math.max(allPages - 1, pageNum + 1));
+  }
+
+  const pagesData = new Array(allPages).fill(null).map((v, i) => i);
 
   return (
     <div>
-      <div className='filter_div'>
-          <select>
-            <option value="">Filter By Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+      <div className={styles.filter_div}>
+        <select onChange={filter}>
+          <option value="">Filter By Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
       </div>
 
       <table>
         <thead>
-        <tr>
-          <th>Picture</th>
-          <th>First</th>
-          <th>last</th>
-          <th>Email</th>
-          <th>Location</th>
-          <th>Pin</th>
-        </tr>
-        </thead>
-        <tbody>
-          {
           <tr>
-            <td>Nitesh</td>
-            <td>Nitesh</td>
-            <td>Singh Rawat</td>
-            <td>nitesh@gmail.com</td>
-            <td>Delhi</td>
-            <td>110003</td>
+            <th>Picture</th>
+            <th>First</th>
+            <th>last</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Pin</th>
           </tr>
-          }
-        </tbody>
+        </thead>
+        {data.map((ele) => {
+          return (
+            <tbody key={ele._id}>
+              <tr>
+                <td>
+                  <img src={ele.picture} alt="" />
+                </td>
+                <td>{ele.first}</td>
+                <td>{ele.last}</td>
+                <td>{ele.gender}</td>
+                <td>{ele.email}</td>
+                <td>{ele.location}</td>
+                <td>{ele.pin}</td>
+              </tr>
+            </tbody>
+          );
+        })}
       </table>
+
+      <div className={styles.pagni_div}>
+        <Page
+          setPageNum={setPageNum}
+          pagesData={pagesData}
+          pageinate1={lastPage}
+          pageinate2={nextPage}
+        />
+      </div>
     </div>
-  )
-}
+  );
+};

@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/Home.css";
+import styles from "./styles/Home.module.css"
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -61,7 +61,7 @@ export const Home = () => {
   }
 
   return (
-    <div className="outer_div">
+    <div className={styles.outer_div}>
       <button onClick={postAllData}>Fetch Users</button>
       <button onClick={deleteData}>Delete Users</button>
       <button onClick={() => navigate("/user")}>User Details</button>

@@ -39,3 +39,17 @@ tbody{
     background-color: #0d1117;
     color: white;
 }
+
+.pagni_div{
+    /* border: 1px solid red; */
+    height: 5rem;
+    margin-top: 2rem;
+}
+
+button{
+    height: 2rem;
+    width: 6%;
+    font-size: 15px;
+    background-color: #4255a4;
+    color: white;
+}
