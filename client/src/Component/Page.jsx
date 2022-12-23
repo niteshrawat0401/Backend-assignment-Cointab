@@ -2,9 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 export const Page = ({ setPageNum, allPages, pageNum,  }) => {
-//   console.log(allPages);
 
-  // -----Pagination-----
+  // -----Pagination------
   const pagesData = new Array(allPages).fill(null).map((v, i) => i);
 
   function lastPage() {

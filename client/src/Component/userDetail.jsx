@@ -2,57 +2,37 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Filter } from "./Filter";
 import { Page } from "./Page";
 import styles from "./styles/UserDetail.module.css";
 
 export const UserDetail = () => {
   const [data, setdata] = useState([]);
   const [pageNum, setPageNum] = useState(0);
-  const [filter, setFilter]= useState("");
   const [allPages, setAllPages] = useState(0);
-
 
   useEffect(() => {
     appendAllData();
   }, [pageNum]);
 
-  // -----append-----
+  // -----Append data-----
   function appendAllData() {
     axios
       .get(`http://localhost:8080/user/page?page=${pageNum}`)
       .then((res) => {
         setAllPages(res.data.allPages);
+        // console.log("data", res.data.allPages);
         setdata(res.data.pageFind);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error", error);
       });
   }
-
-  // -----Filter-----
-  function filterData(e){
-    let value= e.target.value;
-    axios.get(`http://localhost:8080/user/filter/${value}`)
-    .then((res)=>{
-      setdata(res.data.search);
-      console.log(res.data);
-        setFilter(value);
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
-  }
-  useEffect(()=>{
-  }, [filter])
 
   return (
     <div>
       <div className={styles.filter_div}>
-        <select onChange={filterData}>
-          <option value="">Filter By Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+        <Filter data={data} setdata={setdata} />
       </div>
 
       <table>
@@ -87,11 +67,7 @@ export const UserDetail = () => {
       </table>
 
       <div className={styles.pagni_div}>
-        <Page
-        pageNum={pageNum}
-        allPages={allPages}
-          setPageNum={setPageNum}
-        />
+        <Page pageNum={pageNum} allPages={allPages} setPageNum={setPageNum} />
       </div>
     </div>
   );

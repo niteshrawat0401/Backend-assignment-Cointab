@@ -32,7 +32,7 @@ export const Home = () => {
       .get("http://localhost:8080/user/page?page=0")
       .then((res) => {
         let result = res.data.pageFind;
-        console.log(result);
+        // console.log("result", result);
         if (result.length == 0) {
           setData(false);
           getPage();
@@ -48,12 +48,13 @@ export const Home = () => {
   // -----Delete------
   function deleteData() {
     if (data === true) {
-      axios.delete("http://localhost:8080/user/delete").then((res) => {
+      axios.delete("http://localhost:8080/user/delete").then(() => {
         getPage();
       });
       alert("Delete records");
-    } else {
-      alert("Data is not present");
+    }
+     else {
+      alert("Data is not Present");
     }
   }
 
