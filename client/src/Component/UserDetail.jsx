@@ -10,6 +10,7 @@ export const UserDetail = () => {
   const [data, setdata] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [allPages, setAllPages] = useState(0);
+  const [male, setMale]= useState(0);
 
 
   useEffect(() => {
@@ -22,19 +23,28 @@ export const UserDetail = () => {
       .get(`http://localhost:8080/user/page?page=${pageNum}`)
       .then((res) => {
         setAllPages(res.data.allPages);
+        // console.log(res.data.pageFind[0]);
         setdata(res.data.pageFind);
+        let count1=0
+        for(let i=0; i < res.data.pageFind.length; i++){
+            if( res.data.pageFind[i].gender == "male"){
+                // count1+=1 
+                setMale(count1=count1+1)
+            }
+        }//console.log(count1);
       })
       .catch((error) => {
         console.log(error);
       });
   }
+ 
 
   return (
     <div>
       <div className={styles.filter_div}>
         <Filter setdata={setdata} />
       </div>
-
+      <button onClick={handlebtn}>{male}</button>
       <table>
         <thead>
           <tr>
