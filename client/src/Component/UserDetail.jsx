@@ -37,7 +37,9 @@ export const UserDetail = () => {
         console.log(error);
       });
   }
- 
+  function handlebtn(){
+    alert("male"+" "+ male)
+  }
 
   return (
     <div>
